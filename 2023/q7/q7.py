@@ -12,27 +12,24 @@ def read_line(line):
 
     # Max_Count is now max count not equal to J
     # Special case where all 'J'?
-    max_count = -1
-    if c["J"] != 5:
-        # Find Max Count char
-        max_key, max_count = max(
-            (item for item in c.items() if item[0] != "J"), key=lambda x: x[1]
-        )
-        max_count += c["J"]
+    # Find Max Count char
+    max_key, max_count = max(
+        (item for item in c.items() if item[0] != "J"),
+        key=lambda x: x[1],
+        default=("J", 5),
+    )
+    max_count += c["J"]
 
-        # Replace c.values()
-        # Extremely scuffed honestly
-        new_c = ""
-        for c in hand:
-            if c == "J":
-                new_c += max_key
-            else:
-                new_c += c
+    # Replace c.values()
+    # Extremely scuffed honestly
+    new_c = ""
+    for c in hand:
+        if c == "J":
+            new_c += max_key
+        else:
+            new_c += c
 
-        c = Counter(new_c)
-
-    else:
-        max_count = max(c.values())
+    c = Counter(new_c)
 
     # First Card, Same Label, Second Card....
     # Rank....
